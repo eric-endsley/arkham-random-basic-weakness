@@ -40,14 +40,10 @@ export default {
       weaknessImageUrl: null,
     };
   },
+
   methods: {
     async getRandomBasicWeakness() {
       const baseUrl = 'https://arkhamdb.com/';
-
-      this.ownedCards = [];
-      this.ownedSets.forEach((set) => {
-        this.ownedCards.push(...this.setCodes[set]);
-      });
 
       const randomNumber = Math.floor(
         Math.random() * this.ownedCards.length
@@ -55,11 +51,18 @@ export default {
       const randomCard = this.ownedCards[Math.floor(randomNumber)];
 
       const url = `${baseUrl}api/public/card/${randomCard}`;
-
       const result = await axios.get(url);
 
       const cardImage = `${baseUrl}${result.data.imagesrc}`;
       this.weaknessImageUrl = cardImage;
+    },
+
+    addSetCards() {
+      this.ownedCards = [];
+
+      this.ownedSets.forEach((set) => {
+        this.ownedCards.push(...this.setCodes[set]);
+      });
     },
   },
 };
@@ -72,9 +75,10 @@ export default {
       size="large"
       @click="getRandomBasicWeakness"
       :disabled="!ownedSets.length"
-      >Generate Random Basic Weakness</el-button
     >
-    <el-checkbox-group v-model="ownedSets">
+      Generate Random Basic Weakness
+    </el-button>
+    <el-checkbox-group @change="addSetCards" v-model="ownedSets">
       <el-checkbox label="core">Core Set</el-checkbox>
       <el-checkbox label="dwl">Dunwich Legacy</el-checkbox>
       <el-checkbox label="ptc">Path to Carcosa</el-checkbox>
@@ -85,7 +89,7 @@ export default {
       <el-checkbox label="eote">The Edge of the Earth</el-checkbox>
       <el-checkbox label="rtdwl">Return to DL</el-checkbox>
       <el-checkbox label="rtptc">Return to PtC</el-checkbox>
-      <el-checkbox label="rttfa">Return to FA</el-checkbox>
+      <el-checkbox label="rttfa">Return to TFA</el-checkbox>
       <el-checkbox label="rttcu">Return to CU</el-checkbox>
       <el-checkbox label="nate">Nathaniel Cho</el-checkbox>
       <el-checkbox label="harvey">Harvey Walters</el-checkbox>
