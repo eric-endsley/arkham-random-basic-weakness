@@ -1,17 +1,16 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <RandomWeakness />
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import RandomWeakness from './components/RandomWeakness.vue';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
-  }
-}
+    RandomWeakness,
+  },
+};
 </script>
 
 <style>
